@@ -4,249 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Komitéo</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, sans-serif;
-      }
-
-      body {
-        background-color: #f5f5f5;
-      }
-
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-        background: white;
-        border-bottom: 1px solid #eee;
-      }
-
-      .logo {
-        height: 40px;
-      }
-
-      .search-bar {
-        padding: 0.5rem 1rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        width: 200px;
-      }
-
-      .nav-tabs {
-        display: flex;
-        gap: 1rem;
-        padding: 1rem 2rem;
-        background: white;
-        border-bottom: 1px solid #eee;
-      }
-
-      .nav-tab {
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        color: #333;
-        border-bottom: 2px solid transparent;
-      }
-
-      .nav-tab.active {
-        border-bottom-color: #ff7f50;
-        color: #ff7f50;
-      }
-
-      .main-container {
-        display: grid;
-        grid-template-columns: 1fr 300px;
-        gap: 2rem;
-        padding: 2rem;
-        max-width: 1400px;
-        margin: 0 auto;
-      }
-
-      .content-area {
-        background: white;
-        padding: 2rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      .tab-content {
-        display: none;
-      }
-
-      .tab-content.active {
-        display: block;
-      }
-
-      .time-widget {
-        background: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx%20(1)-jANILv86jYt1NejkxQ77JHOQQuXecz.png")
-          center/cover;
-        color: white;
-        padding: 2rem;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-      }
-
-      .time {
-        font-size: 2rem;
-        font-weight: bold;
-      }
-
-      .date {
-        font-size: 1.1rem;
-      }
-
-      .form-section {
-        margin-bottom: 2rem;
-      }
-
-      .dotted-container {
-        position: relative;
-        border: 2px dashed #ffa07a;
-        border-radius: 8px;
-        padding: 20px;
-        margin: 10px 0;
-      }
-
-      .section-header {
-        position: absolute;
-        top: 0;
-        left: 20px;
-        transform: translateY(-50%);
-        background: white;
-        padding: 5px 10px;
-        font-size: 1.1rem;
-        color: #333;
-      }
-
-      .input-group {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 15px;
-      }
-
-      .input-with-icon {
-        position: relative;
-        flex-grow: 1;
-        border: 2px dashed #ffa07a;
-        border-radius: 6px;
-        padding: 10px;
-        min-height: 45px;
-        display: flex;
-        align-items: center;
-      }
-
-      .icon-right {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-      }
-
-      .edit-icon {
-        color: #ff6b6b;
-      }
-
-      .action-button {
-        border: 2px dashed #ffa07a;
-        border-radius: 6px;
-        padding: 8px 15px;
-        background: none;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        cursor: pointer;
-      }
-
-      .action-button:hover {
-        background: #fff5ee;
-      }
-
-      .settings-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-      }
-
-      .settings-section {
-        position: relative;
-        border: 2px dashed #a5d6ff;
-        border-radius: 12px;
-        padding: 20px;
-      }
-
-      .settings-title {
-        position: absolute;
-        top: 0;
-        left: 20px;
-        transform: translateY(-50%);
-        background: #ffe4d6;
-        padding: 5px 15px;
-        border-radius: 4px;
-        font-size: 1rem;
-        color: #333;
-        white-space: nowrap;
-      }
-
-      .permission-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .permission-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 0;
-        border-bottom: 1px solid #eee;
-      }
-
-      .permission-item:last-child {
-        border-bottom: none;
-      }
-
-      .checkbox-group {
-        display: flex;
-        gap: 15px;
-      }
-
-      .custom-checkbox {
-        width: 20px;
-        height: 20px;
-        border: 2px dashed #a5d6ff;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-
-      .custom-checkbox.checked {
-        background-color: #ff6b6b;
-        border-color: #ff6b6b;
-      }
-
-      .column-header {
-        font-size: 0.8rem;
-        color: #666;
-        text-align: center;
-        margin-bottom: 5px;
-      }
-
-      @media (max-width: 1024px) {
-        .main-container {
-          grid-template-columns: 1fr;
-        }
-
-        .settings-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header class="header">
@@ -275,11 +33,9 @@
         </div>
 
         <!-- Accounts Tab -->
-        <!-- Accounts Tab -->
         <div id="accounts" class="tab-content">
           <h1>Gestion des comptes</h1>
 
-          <!-- Upper Section: Propriétaire du compte -->
           <div class="form-section">
             <div class="dotted-container">
               <h2 class="section-header">
@@ -287,17 +43,20 @@
               </h2>
               <div class="input-group">
                 <div class="input-with-icon">
-                  Nom Prénom ( mail)
+                  <input
+                    type="text"
+                    class="form-input"
+                    placeholder="Nom Prénom ( mail )"
+                  />
                   <svg
-                    class="icon-right edit-icon"
+                    class="icon-right"
                     viewBox="0 0 24 24"
                     width="20"
                     height="20"
                   >
                     <path
                       fill="currentColor"
-                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41
-                   l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
                     />
                   </svg>
                 </div>
@@ -312,72 +71,55 @@
                 >
                   <path
                     fill="currentColor"
-                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41
-                 l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
                   />
                 </svg>
               </button>
             </div>
           </div>
 
-          <!-- LOWER SECTION: Administrateur et adjoint -->
           <div class="form-section">
             <div class="dotted-container">
               <h2 class="section-header">Administrateur et adjoint</h2>
-
-              <!-- Administrateur -->
               <div class="input-group">
                 <div class="input-with-icon">
-                  Administrateur
-                  <svg
-                    class="icon-right edit-icon"
-                    viewBox="0 0 24 24"
-                    width="20"
-                    height="20"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02
-                   0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                    />
-                  </svg>
-                </div>
-              </div>
-
-              <!-- Adjoint -->
-              <div class="input-group">
-                <div class="input-with-icon">
-                  Adjoint
-                  <svg
-                    class="icon-right edit-icon"
-                    viewBox="0 0 24 24"
-                    width="20"
-                    height="20"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02
-                   0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-                    />
-                  </svg>
-                </div>
-              </div>
-
-              <button class="action-button">
-                Enregistrer
-                <svg
-                  class="edit-icon"
-                  viewBox="0 0 24 24"
-                  width="16"
-                  height="16"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41
-                 l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                  <input
+                    type="text"
+                    class="form-input"
+                    placeholder="Administrateur"
                   />
-                </svg>
-              </button>
+                  <svg
+                    class="icon-right"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </div>
+                <div class="account-checkbox"></div>
+              </div>
+
+              <div class="input-group">
+                <div class="input-with-icon">
+                  <input type="text" class="form-input" placeholder="Adjoint" />
+                  <svg
+                    class="icon-right"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    />
+                  </svg>
+                </div>
+                <div class="account-checkbox"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -553,6 +295,11 @@
             .getElementById(tabs[0].getAttribute("data-tab"))
             .classList.add("active");
         }
+      });
+      document.querySelectorAll(".account-checkbox").forEach((checkbox) => {
+        checkbox.addEventListener("click", function () {
+          this.classList.toggle("checked");
+        });
       });
     </script>
   </body>
