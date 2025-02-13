@@ -27,9 +27,75 @@
       <div class="content-area">
         <!-- Dashboard Tab -->
         <div id="dashboard" class="tab-content">
-          <h1>Tableau de bord</h1>
-          <p>Bienvenue sur votre tableau de bord Komitéo.</p>
-          <!-- Add more dashboard content here -->
+          <div class="menu-grid">
+            <div class="menu-item">
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
+                alt="Site internet & oeuvre sociale"
+              />
+              <h3>Site internet & oeuvre sociale</h3>
+            </div>
+            <div class="menu-item">
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
+                alt="Réaliser une enquête"
+              />
+              <h3>Réaliser une enquête</h3>
+            </div>
+            <div class="menu-item">
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
+                alt="Arbre des causes"
+              />
+              <h3>Arbre des causes</h3>
+            </div>
+            <div class="menu-item">
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
+                alt="Gestion des comptes"
+              />
+              <h3>Gestion des comptes</h3>
+            </div>
+            <div class="menu-item">
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
+                alt="Réaliser une inspection"
+              />
+              <h3>Réaliser une inspection</h3>
+            </div>
+            <div class="menu-item">
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
+                alt="Heure de délégation"
+              />
+              <h3>Heure de délégation</h3>
+            </div>
+            <div class="menu-item">
+              <img
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
+                alt="Droit d'alerte"
+              />
+              <h3>Droit d'alerte</h3>
+            </div>
+          </div>
+
+          <aside class="sidebar">
+            <div class="time-widget">
+              <div class="time">08:10</div>
+              <div class="date">Jeudi 28, Novembre 2024</div>
+            </div>
+            <div class="welcome-message">
+              <h2>Salut Jessica !</h2>
+              <p>
+                Installez-vous confortablement, on s'occupe de tout (ou presque)
+                !
+              </p>
+              <p>
+                Bonjour Jessica ! On est ravis de vous voir. Allez, un café et
+                on s'y met ?
+              </p>
+            </div>
+          </aside>
         </div>
 
         <!-- Accounts Tab -->
@@ -258,7 +324,7 @@
         </div>
       </div>
 
-      <aside>
+      <aside id="aside">
         <div class="time-widget">
           <div class="time">08:10</div>
           <div class="date">Jeudi 28, Novembre 2024</div>
@@ -266,21 +332,39 @@
       </aside>
     </main>
     <script>
+      //   const aside = document.getElementById("aside");
       document.addEventListener("DOMContentLoaded", function () {
+        const aside = document.getElementById("aside");
+        const mainContainer = document.querySelector(".main-container");
         const tabs = document.querySelectorAll(".nav-tab");
         const tabContents = document.querySelectorAll(".tab-content");
 
-        // Function to switch tabs
         function switchTab(event) {
           const selectedTab = event.target.getAttribute("data-tab");
+
+          console.log(selectedTab);
 
           // Remove 'active' class from all tabs and contents
           tabs.forEach((tab) => tab.classList.remove("active"));
           tabContents.forEach((content) => content.classList.remove("active"));
+          // Hide all tab contents
+          tabContents.forEach((content) => (content.style.display = "none"));
 
           // Add 'active' class to clicked tab and corresponding content
           event.target.classList.add("active");
           document.getElementById(selectedTab).classList.add("active");
+          const activeTab = document.getElementById(selectedTab);
+          if (activeTab) {
+            activeTab.style.display = "block";
+          }
+
+          if (selectedTab === "dashboard") {
+            aside.style.display = "none";
+            mainContainer.style.gridTemplateColumns = "1fr";
+          } else {
+            aside.style.display = "block";
+            mainContainer.style.gridTemplateColumns = "1fr 300px";
+          }
         }
 
         // Add click event to each tab

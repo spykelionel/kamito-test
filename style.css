@@ -49,15 +49,6 @@ body {
   color: #ff7f50;
 }
 
-.main-container {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 2rem;
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
 .content-area {
   background: white;
   padding: 2rem;
@@ -73,22 +64,92 @@ body {
   display: block;
 }
 
+:root {
+  --primary-color: #ff7f50;
+  --text-color: #333;
+  --bg-color: #f5f5f5;
+  --card-bg: #ffffff;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+body {
+  background-color: var(--bg-color);
+}
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+#dashboard {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  gap: 2rem;
+  padding: 2rem;
+  width: 100%;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.menu-item {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.menu-item:hover {
+  transform: translateY(-2px);
+}
+.menu-item img {
+  width: 40px;
+  height: 40px;
+}
+.menu-item h3 {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.sidebar {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 .time-widget {
-  background: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx%20(1)-jANILv86jYt1NejkxQ77JHOQQuXecz.png")
+  background: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png")
     center/cover;
   color: white;
   padding: 2rem;
   border-radius: 8px;
   margin-bottom: 1rem;
 }
-
 .time {
   font-size: 2rem;
   font-weight: bold;
 }
-
 .date {
   font-size: 1.1rem;
+}
+.welcome-message {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
 }
 
 .form-section {
