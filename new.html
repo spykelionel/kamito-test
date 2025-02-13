@@ -338,6 +338,8 @@
         const mainContainer = document.querySelector(".main-container");
         const tabs = document.querySelectorAll(".nav-tab");
         const tabContents = document.querySelectorAll(".tab-content");
+        aside.style.display = "none";
+        mainContainer.style.gridTemplateColumns = "1fr";
 
         function switchTab(event) {
           const selectedTab = event.target.getAttribute("data-tab");
@@ -385,6 +387,48 @@
           this.classList.toggle("checked");
         });
       });
+      // Update time and date
+      function updateDateTime() {
+        const now = new Date();
+        const timeElement = document.querySelector(".time");
+        const dateElement = document.querySelector(".date");
+
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        timeElement.textContent = `${hours}:${minutes}`;
+
+        const days = [
+          "Dimanche",
+          "Lundi",
+          "Mardi",
+          "Mercredi",
+          "Jeudi",
+          "Vendredi",
+          "Samedi",
+        ];
+        const months = [
+          "Janvier",
+          "Février",
+          "Mars",
+          "Avril",
+          "Mai",
+          "Juin",
+          "Juillet",
+          "Août",
+          "Septembre",
+          "Octobre",
+          "Novembre",
+          "Décembre",
+        ];
+
+        const formattedDate = `${days[now.getDay()]} ${now.getDate()}, ${
+          months[now.getMonth()]
+        } ${now.getFullYear()}`;
+        dateElement.textContent = formattedDate;
+      }
+
+      updateDateTime();
+      setInterval(updateDateTime, 60000);
     </script>
   </body>
 </html>
