@@ -9,6 +9,7 @@ body {
   background-color: #f5f5f5;
 }
 
+/* Base styles */
 .header {
   display: flex;
   justify-content: space-between;
@@ -16,27 +17,22 @@ body {
   padding: 1rem 2rem;
   background: white;
   border-bottom: 1px solid #eee;
+  flex-wrap: wrap;
 }
 
 .logo {
   height: 40px;
 }
 
-.search-bar {
-  padding: 0.5rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 200px;
-}
-
+/* Navigation */
 .nav-tabs {
   display: flex;
   gap: 1rem;
-  padding: 1rem 2rem;
   background: white;
   border-bottom: 1px solid #eee;
 }
 
+/* Tabs */
 .nav-tab {
   padding: 0.5rem 1rem;
   cursor: pointer;
@@ -47,6 +43,46 @@ body {
 .nav-tab.active {
   border-bottom-color: #ff7f50;
   color: #ff7f50;
+}
+
+/* Search Bar */
+.search-bar {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 200px;
+}
+
+/* Mobile Menu Button */
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .nav-tabs {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 0;
+  }
+
+  .nav-tabs.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin-top: 1rem;
+  }
 }
 
 .content-area {

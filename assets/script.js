@@ -168,4 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
   new TabManager();
   new CheckboxManager();
   new DateTimeManager();
+  document.querySelector(".menu-toggle").addEventListener("click", function () {
+    document.querySelector(".nav-tabs").classList.toggle("active");
+  });
 });
