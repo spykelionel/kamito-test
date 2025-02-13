@@ -1,102 +1,171 @@
-//   const aside = document.getElementById("aside");
-document.addEventListener("DOMContentLoaded", function () {
-  const aside = document.getElementById("aside");
-  const mainContainer = document.querySelector(".main-container");
-  const tabs = document.querySelectorAll(".nav-tab");
-  const tabContents = document.querySelectorAll(".tab-content");
-  aside.style.display = "none";
-  mainContainer.style.gridTemplateColumns = "1fr";
+// Utility functions
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => document.querySelectorAll(selector);
 
-  function switchTab(event) {
-    const selectedTab = event.target.getAttribute("data-tab");
+// Tab management
+class TabManager {
+  constructor() {
+    this.tabs = $$(".nav-tab");
+    this.contents = $$(".tab-content");
+    this.aside = $("#aside");
+    this.mainContainer = $(".main-container");
 
-    // Remove 'active' class from all tabs and contents
-    tabs.forEach((tab) => tab.classList.remove("active"));
-    tabContents.forEach((content) => content.classList.remove("active"));
-    // Hide all tab contents
-    tabContents.forEach((content) => (content.style.display = "none"));
+    this.initialize();
+  }
 
-    // Add 'active' class to clicked tab and corresponding content
-    event.target.classList.add("active");
-    document.getElementById(selectedTab).classList.add("active");
+  initialize() {
+    this.hideAside();
+    this.setupEventListeners();
+    this.activateInitialTab();
+  }
 
-    const activeTab = document.getElementById(selectedTab);
-    if (activeTab) {
-      activeTab.style.display = "block";
+  hideAside() {
+    this.aside.style.display = "none";
+    this.mainContainer.style.gridTemplateColumns = "1fr";
+  }
+
+  setupEventListeners() {
+    this.tabs.forEach((tab) => {
+      tab.addEventListener("click", () => this.activateTab(tab.dataset.tab));
+    });
+  }
+
+  activateInitialTab() {
+    if (this.tabs.length) {
+      this.activateTab(this.tabs[0].dataset.tab);
     }
+  }
 
-    if (selectedTab === "dashboard" || selectedTab === "settings") {
-      activeTab.style.display = "grid";
-      activeTab.style.gridTemplateColumns = "70% 30%";
-      aside.style.display = "none";
-      mainContainer.style.gridTemplateColumns = "1fr";
+  activateTab(tabId) {
+    this.deactivateAll();
+    this.activateTargetElements(tabId);
+    this.updateLayout(tabId);
+  }
+
+  deactivateAll() {
+    this.tabs.forEach((tab) => tab.classList.remove("active"));
+    this.contents.forEach((content) => {
+      content.classList.remove("active");
+      content.style.display = "none";
+    });
+  }
+
+  activateTargetElements(tabId) {
+    const targetTab = [...this.tabs].find((t) => t.dataset.tab === tabId);
+    const targetContent = document.getElementById(tabId);
+
+    if (targetTab && targetContent) {
+      targetTab.classList.add("active");
+      targetContent.classList.add("active");
+    }
+  }
+
+  updateLayout(tabId) {
+    const targetContent = document.getElementById(tabId);
+    if (!targetContent) return;
+
+    if (["dashboard", "settings"].includes(tabId)) {
+      targetContent.style.display = "grid";
+      targetContent.style.gridTemplateColumns = "70% 30%";
+      this.hideAside();
     } else {
-      aside.style.display = "block";
-      mainContainer.style.gridTemplateColumns = "1fr 300px";
+      targetContent.style.display = "block";
+      this.aside.style.display = "block";
+      this.mainContainer.style.gridTemplateColumns = "1fr 300px";
     }
   }
-
-  // Add click event to each tab
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", switchTab);
-  });
-
-  // Activate the first tab by default
-  if (tabs.length > 0) {
-    tabs[0].classList.add("active");
-    document
-      .getElementById(tabs[0].getAttribute("data-tab"))
-      .classList.add("active");
-  }
-});
-document.querySelectorAll(".custom-checkbox").forEach((checkbox) => {
-  checkbox.addEventListener("click", function () {
-    this.classList.toggle("checked");
-  });
-});
-document.querySelectorAll(".account-checkbox").forEach((checkbox) => {
-  checkbox.addEventListener("click", function () {
-    this.classList.toggle("checked");
-  });
-});
-function updateDateTime() {
-  const now = new Date();
-  const timeElement = document.querySelectorAll(".time");
-  const dateElement = document.querySelectorAll(".date");
-
-  const hours = String(now.getHours()).padStart(2, "0");
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  timeElement.forEach((ele) => (ele.textContent = `${hours}:${minutes}`));
-
-  const days = [
-    "Dimanche",
-    "Lundi",
-    "Mardi",
-    "Mercredi",
-    "Jeudi",
-    "Vendredi",
-    "Samedi",
-  ];
-  const months = [
-    "Janvier",
-    "Février",
-    "Mars",
-    "Avril",
-    "Mai",
-    "Juin",
-    "Juillet",
-    "Août",
-    "Septembre",
-    "Octobre",
-    "Novembre",
-    "Décembre",
-  ];
-
-  const formattedDate = `${days[now.getDay()]} ${now.getDate()}, ${
-    months[now.getMonth()]
-  } ${now.getFullYear()}`;
-  dateElement.forEach((d) => (d.textContent = formattedDate));
 }
 
-updateDateTime();
-setInterval(updateDateTime, 60000);
+// Checkbox management
+class CheckboxManager {
+  constructor() {
+    this.checkboxes = $$(".custom-checkbox, .account-checkbox");
+    this.initialize();
+  }
+
+  initialize() {
+    this.checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener("click", () => this.toggle(checkbox));
+    });
+  }
+
+  toggle(checkbox) {
+    checkbox.classList.toggle("checked");
+  }
+}
+
+// DateTime management
+class DateTimeManager {
+  constructor() {
+    this.timeElements = $$(".time");
+    this.dateElements = $$(".date");
+    this.initialize();
+  }
+
+  initialize() {
+    this.updateDisplay();
+    setInterval(() => this.updateDisplay(), 60000);
+  }
+
+  updateDisplay() {
+    const now = new Date();
+    this.updateTimeElements(now);
+    this.updateDateElements(now);
+  }
+
+  updateTimeElements(date) {
+    const time = this.formatTime(date);
+    this.timeElements.forEach((element) => (element.textContent = time));
+  }
+
+  updateDateElements(date) {
+    const formattedDate = this.formatDate(date);
+    this.dateElements.forEach(
+      (element) => (element.textContent = formattedDate)
+    );
+  }
+
+  formatTime(date) {
+    return `${date.getHours().toString().padStart(2, "0")}:${date
+      .getMinutes()
+      .toString()
+      .padStart(2, "0")}`;
+  }
+
+  formatDate(date) {
+    const days = [
+      "Dimanche",
+      "Lundi",
+      "Mardi",
+      "Mercredi",
+      "Jeudi",
+      "Vendredi",
+      "Samedi",
+    ];
+    const months = [
+      "Janvier",
+      "Février",
+      "Mars",
+      "Avril",
+      "Mai",
+      "Juin",
+      "Juillet",
+      "Août",
+      "Septembre",
+      "Octobre",
+      "Novembre",
+      "Décembre",
+    ];
+
+    return `${days[date.getDay()]} ${date.getDate()}, ${
+      months[date.getMonth()]
+    } ${date.getFullYear()}`;
+  }
+}
+
+// Initialize application
+document.addEventListener("DOMContentLoaded", () => {
+  new TabManager();
+  new CheckboxManager();
+  new DateTimeManager();
+});
