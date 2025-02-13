@@ -26,7 +26,7 @@
     <main class="main-container">
       <div class="content-area">
         <!-- Dashboard Tab -->
-        <div id="dashboard" class="tab-content">
+        <div id="dashboard" class="tab-content active">
           <div class="menu-grid">
             <div class="menu-item">
               <img
@@ -344,8 +344,6 @@
         function switchTab(event) {
           const selectedTab = event.target.getAttribute("data-tab");
 
-          console.log(selectedTab);
-
           // Remove 'active' class from all tabs and contents
           tabs.forEach((tab) => tab.classList.remove("active"));
           tabContents.forEach((content) => content.classList.remove("active"));
@@ -355,12 +353,16 @@
           // Add 'active' class to clicked tab and corresponding content
           event.target.classList.add("active");
           document.getElementById(selectedTab).classList.add("active");
+
           const activeTab = document.getElementById(selectedTab);
+          console.log(selectedTab, activeTab);
           if (activeTab) {
             activeTab.style.display = "block";
           }
 
           if (selectedTab === "dashboard") {
+            activeTab.style.display = "grid";
+            activeTab.style.gridTemplateColumns = "80% 20%";
             aside.style.display = "none";
             mainContainer.style.gridTemplateColumns = "1fr";
           } else {
@@ -387,48 +389,6 @@
           this.classList.toggle("checked");
         });
       });
-      // Update time and date
-      function updateDateTime() {
-        const now = new Date();
-        const timeElement = document.querySelector(".time");
-        const dateElement = document.querySelector(".date");
-
-        const hours = String(now.getHours()).padStart(2, "0");
-        const minutes = String(now.getMinutes()).padStart(2, "0");
-        timeElement.textContent = `${hours}:${minutes}`;
-
-        const days = [
-          "Dimanche",
-          "Lundi",
-          "Mardi",
-          "Mercredi",
-          "Jeudi",
-          "Vendredi",
-          "Samedi",
-        ];
-        const months = [
-          "Janvier",
-          "Février",
-          "Mars",
-          "Avril",
-          "Mai",
-          "Juin",
-          "Juillet",
-          "Août",
-          "Septembre",
-          "Octobre",
-          "Novembre",
-          "Décembre",
-        ];
-
-        const formattedDate = `${days[now.getDay()]} ${now.getDate()}, ${
-          months[now.getMonth()]
-        } ${now.getFullYear()}`;
-        dateElement.textContent = formattedDate;
-      }
-
-      updateDateTime();
-      setInterval(updateDateTime, 60000);
     </script>
   </body>
 </html>
