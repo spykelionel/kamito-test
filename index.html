@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Komitéo</title>
+    <title>Komitéo - Gestion des comptes</title>
     <style>
       :root {
         --primary-color: #ff7f50;
         --text-color: #333;
         --bg-color: #f5f5f5;
         --card-bg: #ffffff;
+        --border-color: #ffe4d6;
       }
 
       * {
@@ -43,6 +44,25 @@
         width: 200px;
       }
 
+      .nav-tabs {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem 2rem;
+        background: white;
+      }
+
+      .nav-tab {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        color: var(--text-color);
+        border-bottom: 2px solid transparent;
+      }
+
+      .nav-tab.active {
+        border-bottom-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+
       .main-container {
         display: grid;
         grid-template-columns: 1fr 300px;
@@ -52,47 +72,81 @@
         margin: 0 auto;
       }
 
-      .menu-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 1rem;
-      }
-
-      .menu-item {
-        background: var(--card-bg);
-        padding: 1.5rem;
+      .content-area {
+        background: white;
+        padding: 2rem;
         border-radius: 8px;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        cursor: pointer;
-        transition: transform 0.2s;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
-      .menu-item:hover {
-        transform: translateY(-2px);
+      .tab-content {
+        display: none;
       }
 
-      .menu-item img {
-        width: 40px;
-        height: 40px;
+      .tab-content.active {
+        display: block;
       }
 
-      .menu-item h3 {
-        color: var(--primary-color);
+      .form-section {
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        border: 1px dashed var(--border-color);
+        border-radius: 8px;
+        background: #fff9f5;
+      }
+
+      .form-section h2 {
         font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
       }
 
-      .sidebar {
-        background: var(--card-bg);
-        padding: 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      .form-group {
+        margin-bottom: 1rem;
+        position: relative;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        background: white;
+      }
+
+      .edit-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-color);
+        cursor: pointer;
+      }
+
+      .button {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .button-outline {
+        background: transparent;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .save-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
       }
 
       .time-widget {
-        background: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png")
+        background: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx%20(1)-jANILv86jYt1NejkxQ77JHOQQuXecz.png")
           center/cover;
         color: white;
         padding: 2rem;
@@ -108,38 +162,12 @@
       .date {
         font-size: 1.1rem;
       }
-
-      .welcome-message {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 8px;
-        text-align: center;
-      }
-
-      .nav-tabs {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 1rem;
-        padding: 0 2rem;
-      }
-
-      .nav-tab {
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        color: var(--text-color);
-        border-bottom: 2px solid transparent;
-      }
-
-      .nav-tab.active {
-        border-bottom-color: var(--primary-color);
-        color: var(--primary-color);
-      }
     </style>
   </head>
   <body>
     <header class="header">
       <img
-        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
+        src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx%20(1)-jANILv86jYt1NejkxQ77JHOQQuXecz.png"
         alt="Komitéo"
         class="logo"
       />
@@ -147,96 +175,103 @@
     </header>
 
     <nav class="nav-tabs">
-      <div class="nav-tab active">Tableau de bord</div>
-      <div class="nav-tab">Gestion des comptes</div>
-      <div class="nav-tab">Site Internet</div>
-      <div class="nav-tab">Paramètres</div>
+      <div class="nav-tab" data-tab="dashboard">Tableau de bord</div>
+      <div class="nav-tab active" data-tab="accounts">Gestion des comptes</div>
+      <div class="nav-tab" data-tab="website">Site Internet</div>
+      <div class="nav-tab" data-tab="settings">Paramètres</div>
     </nav>
 
+    <button class="button save-button"><span>📥</span> Enregistrer</button>
+
     <main class="main-container">
-      <div class="menu-grid">
-        <div class="menu-item">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
-            alt=""
-          />
-          <h3>Site internet & oeuvre sociale</h3>
+      <div class="content-area">
+        <!-- Dashboard Tab -->
+        <div class="tab-content" id="dashboard">
+          <h1>Tableau de bord</h1>
+          <!-- Dashboard content here -->
         </div>
-        <div class="menu-item">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
-            alt=""
-          />
-          <h3>Réaliser une enquête</h3>
+
+        <!-- Accounts Tab -->
+        <div class="tab-content active" id="accounts">
+          <div class="form-section">
+            <h2>Propriétaire du compte (secrétaire)</h2>
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Nom Prénom ( mail)"
+              />
+              <span class="edit-icon">✏️</span>
+            </div>
+            <button class="button button-outline">Transfere</button>
+          </div>
+
+          <div class="form-section">
+            <h2>Administrateur et adjoint</h2>
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Administrateur"
+              />
+              <span class="edit-icon">✏️</span>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Adjoint" />
+              <span class="edit-icon">✏️</span>
+            </div>
+          </div>
         </div>
-        <div class="menu-item">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
-            alt=""
-          />
-          <h3>Arbre des causes</h3>
+
+        <!-- Website Tab -->
+        <div class="tab-content" id="website">
+          <h1>Site Internet</h1>
+          <!-- Website content here -->
         </div>
-        <div class="menu-item">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
-            alt=""
-          />
-          <h3>Gestion des comptes</h3>
-        </div>
-        <div class="menu-item">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
-            alt=""
-          />
-          <h3>Réaliser une inspection</h3>
-        </div>
-        <div class="menu-item">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
-            alt=""
-          />
-          <h3>Heure de délégation</h3>
-        </div>
-        <div class="menu-item">
-          <img
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Komit%C3%A9o%20interface.pptx-p2DR1jyctM0avQndumkIpsC59VqSSd.png"
-            alt=""
-          />
-          <h3>Droit d'alerte</h3>
+
+        <!-- Settings Tab -->
+        <div class="tab-content" id="settings">
+          <h1>Paramètres</h1>
+          <!-- Settings content here -->
         </div>
       </div>
 
-      <aside class="sidebar">
+      <aside>
         <div class="time-widget">
           <div class="time">08:10</div>
           <div class="date">Jeudi 28, Novembre 2024</div>
-        </div>
-        <div class="welcome-message">
-          <h2>Salut Jessica !</h2>
-          <p>
-            Installez-vous confortablement, on s'occupe de tout (ou presque) !
-          </p>
-          <p>
-            Bonjour Jessica ! On est ravis de vous voir. Allez, un café et on
-            s'y met ?
-          </p>
         </div>
       </aside>
     </main>
 
     <script>
+      // Tab switching functionality
+      const tabs = document.querySelectorAll(".nav-tab");
+      const tabContents = document.querySelectorAll(".tab-content");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          // Remove active class from all tabs and contents
+          tabs.forEach((t) => t.classList.remove("active"));
+          tabContents.forEach((content) => content.classList.remove("active"));
+
+          // Add active class to clicked tab and corresponding content
+          tab.classList.add("active");
+          const tabId = tab.getAttribute("data-tab");
+          document.getElementById(tabId).classList.add("active");
+        });
+      });
+
       // Update time and date
       function updateDateTime() {
         const now = new Date();
         const timeElement = document.querySelector(".time");
         const dateElement = document.querySelector(".date");
 
-        // Format time
         const hours = String(now.getHours()).padStart(2, "0");
         const minutes = String(now.getMinutes()).padStart(2, "0");
         timeElement.textContent = `${hours}:${minutes}`;
 
-        // Format date
         const days = [
           "Dimanche",
           "Lundi",
@@ -267,28 +302,16 @@
         dateElement.textContent = formattedDate;
       }
 
-      // Update time every minute
       updateDateTime();
       setInterval(updateDateTime, 60000);
 
-      // Handle tab navigation
-      const tabs = document.querySelectorAll(".nav-tab");
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-          tabs.forEach((t) => t.classList.remove("active"));
-          tab.classList.add("active");
-        });
-      });
-
-      // Add hover effect to menu items
-      const menuItems = document.querySelectorAll(".menu-item");
-      menuItems.forEach((item) => {
-        item.addEventListener("mouseenter", () => {
-          item.style.transform = "translateY(-2px)";
-        });
-        item.addEventListener("mouseleave", () => {
-          item.style.transform = "translateY(0)";
-        });
+      // Save button animation
+      const saveButton = document.querySelector(".save-button");
+      saveButton.addEventListener("click", () => {
+        saveButton.style.transform = "scale(0.95)";
+        setTimeout(() => {
+          saveButton.style.transform = "scale(1)";
+        }, 100);
       });
     </script>
   </body>
