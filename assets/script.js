@@ -22,6 +22,8 @@ class TabManager {
   hideAside() {
     this.aside.style.display = "none";
     this.mainContainer.style.gridTemplateColumns = "1fr";
+    // this.mainContainer.style.display = "flex";
+    // this.mainContainer.style.justifyContent = "center";
   }
 
   setupEventListeners() {
@@ -72,6 +74,10 @@ class TabManager {
       targetContent.style.display = "block";
       this.aside.style.display = "block";
       this.mainContainer.style.gridTemplateColumns = "1fr 300px";
+    }
+    if (tabId == "settings") {
+      targetContent.style.display = "grid";
+      targetContent.style.gridTemplateColumns = "1fr";
     }
   }
 }
