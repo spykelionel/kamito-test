@@ -1,3 +1,11 @@
+:root {
+  --primary-color: #eba45a;
+  --text-color: #333;
+  --bg-color: #f5f5f5;
+  --card-bg: #ffffff;
+  --partial-color: #fce5cd;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,8 +13,12 @@
   font-family: Arial, sans-serif;
 }
 
+.text-primary {
+  color: var(--primary-color);
+}
+
 body {
-  background-color: #f5f5f5;
+  background-color: #fff;
 }
 
 /* Base styles */
@@ -14,8 +26,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background: white;
+  padding: 0 2rem;
+  background: #eeeeee;
   border-bottom: 1px solid #eee;
   flex-wrap: wrap;
 }
@@ -28,21 +40,23 @@ body {
 .nav-tabs {
   display: flex;
   gap: 1rem;
-  background: white;
+  background: none;
   border-bottom: 1px solid #eee;
+  height: 100%;
 }
 
 /* Tabs */
 .nav-tab {
-  padding: 0.5rem 1rem;
+  padding: 1.2rem 1rem;
   cursor: pointer;
   color: #333;
   border-bottom: 2px solid transparent;
+  font-weight: 600;
 }
 
 .nav-tab.active {
-  border-bottom-color: #ff7f50;
-  color: #ff7f50;
+  color: var(--primary-color);
+  background-color: var(--partial-color);
 }
 
 /* Search Bar */
@@ -51,6 +65,16 @@ body {
   border: 1px solid #ddd;
   border-radius: 4px;
   width: 200px;
+  background-color: #b7b7b7;
+  color: #eeeeee;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.search-bar::placeholder {
+  text-align: center;
+  color: #eeeeee;
+  font-size: large;
 }
 
 /* Mobile Menu Button */
@@ -100,12 +124,6 @@ body {
   display: block;
 }
 
-:root {
-  --primary-color: #ff7f50;
-  --text-color: #333;
-  --bg-color: #f5f5f5;
-  --card-bg: #ffffff;
-}
 * {
   margin: 0;
   padding: 0;
@@ -113,15 +131,18 @@ body {
   font-family: Arial, sans-serif;
 }
 body {
-  background-color: var(--bg-color);
+  background-color: #fff;
 }
 .main-container {
   display: grid;
   grid-template-columns: 1fr 300px;
   gap: 2rem;
-  padding: 2rem;
-  max-width: 1400px;
-  margin: 0 auto;
+  background-color: #fff;
+  width: 100%;
+}
+
+#aside {
+  display: none;
 }
 
 #dashboard {
@@ -137,8 +158,9 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
 }
+
 .menu-item {
-  background: var(--card-bg);
+  background: #eee;
   padding: 1.5rem;
   border-radius: 8px;
   display: flex;
@@ -147,27 +169,79 @@ body {
   cursor: pointer;
   transition: transform 0.2s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.flex-end {
+  align-items: flex-end;
+}
+.absolute-first {
+  position: absolute;
+  top: 45px;
+  right: 0;
+}
+
+.menu-item .w-x {
+  width: 5rem;
+  height: 5rem;
+}
+
+.item-1 {
+  margin: 2rem;
+}
+
+.menu-item.first {
+  width: 100%;
+  margin: 2rem 0;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 15% 80%;
+  gap: 1rem;
+}
+.auto {
+  margin: auto 0;
+}
+.absolute {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+}
+
+.first-item {
+  background-color: var(--bg-color);
+  padding: 1rem;
+  position: relative;
+  border-radius: 12px;
+}
+
 .menu-item:hover {
   transform: translateY(-2px);
 }
-.menu-item img {
-  width: 40px;
-  height: 40px;
-}
+
 .menu-item h3 {
   color: var(--primary-color);
   font-size: 1.1rem;
 }
 
 .sidebar {
-  background: rgba(131, 131, 131, 0.617);
+  background: #eeeeee;
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: 4rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .time-widget {
-  background: linear-gradient(135deg, hsl(16, 74%, 64%), hsl(0, 14%, 28%));
+  background: url("/assets/images/background_time.png");
   color: white;
   padding: 2rem;
   border-radius: 8px;
@@ -185,12 +259,25 @@ body {
 .date {
   font-size: 1.1rem;
 }
+
+.rounded {
+  border-radius: 9999px;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.p-2 {
+  padding: 1rem;
+}
+
 .welcome-message {
   background: white;
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: 14px;
   text-align: center;
-  border: 1px solid #ff6b6b;
+  border: 1px solid var(--primary-color);
 }
 .welcome-message > p {
   margin: 1.5rem 0;
@@ -458,13 +545,13 @@ body {
 .account-checkbox {
   width: 24px;
   height: 24px;
-  border: 2px solid #ffa07a;
+  border: 2px solid var(--primary-color);
   border-radius: 4px;
   cursor: pointer;
 }
 
 .account-checkbox.checked {
-  background-color: #ffa07a;
+  background-color: #cc4125;
   position: relative;
 }
 
